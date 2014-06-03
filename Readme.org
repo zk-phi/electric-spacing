@@ -15,18 +15,15 @@ Require this script
 
 : (require 'electric-spacing)
 
-and you can enable electric-spacing-mode with
-
-: (electric-spacing-mode 1)
-
-or =M-x electric-spacing-mode=. Loading the mode in major-mode-hooks
-may be useful.
+and you may enable electric-spacing-mode with =M-x
+electric-spacing-mode=. Loading the mode in major-mode-hooks may also
+be useful.
 
 : (add-hook 'org-mode-hook 'electric-spacing-mode)
 
 ** Defining Patterns
 
-You can define a pattern where whitespaces should be inserted, by
+You may define a pattern where whitespaces should be inserted, by
 adding a regexp-pair to =electric-spacing-regexp-pairs=. For example,
 following setting inserts spaces between Japanese and English
 characters like: =foo ほげ bar ふが=
@@ -38,7 +35,7 @@ characters like: =foo ほげ bar ふが=
                '("[0-9A-Za-z]" . "\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH"))
 #+end_src
 
-If you want to define a buffer-local pattern, by making
+You may define a buffer-local pattern by making
 =electric-spacing-regexp-pairs= buffer-local before registering the
 pattern.
 
