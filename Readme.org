@@ -5,6 +5,9 @@
 insert spaces automatically between user-defined patterns
 
 ** Screencast
+
+[[screencast.gif]]
+
 ** Installation
 
 
