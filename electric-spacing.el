@@ -40,10 +40,10 @@
 ;; example, following setting inserts spaces between Japanese and
 ;; English characters like: "foo ほげ bar ふが"
 ;;
-;;   (add-to-list
-;;    'electric-spacing-regexp-pairs
-;;    '(("\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH" . "[0-9A-Za-z]")
-;;      ("[0-9A-Za-z]" . "\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH")))
+;;   (add-to-list 'electric-spacing-regexp-pairs
+;;                '("\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH" . "[0-9A-Za-z]"))
+;;   (add-to-list 'electric-spacing-regexp-pairs
+;;                '("[0-9A-Za-z]" . "\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH"))
 ;;
 ;; If you want to define a buffer-local pattern, make variable
 ;; "electric-spacing-regexp-pairs" buffer-local before registering the

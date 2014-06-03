@@ -33,8 +33,9 @@ characters like: =foo ほげ bar ふが=
 
 #+begin_src emacs-lisp
   (add-to-list 'electric-spacing-regexp-pairs
-               '(("\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH" . "[0-9A-Za-z]")
-                 ("[0-9A-Za-z]" . "\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH")))
+               '("\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH" . "[0-9A-Za-z]"))
+  (add-to-list 'electric-spacing-regexp-pairs
+               '("[0-9A-Za-z]" . "\\cA\\|\\cC\\|\\ck\\|\\cK\\|\\cH"))
 #+end_src
 
 If you want to define a buffer-local pattern, by making
