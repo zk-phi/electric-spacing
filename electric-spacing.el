@@ -19,6 +19,7 @@
 ;; Author: zk_phi
 ;; URL: http://hins11.yu-yake.com/
 ;; Version: 1.0.0
+;; Package-Requires: ((cl-lib "0.5"))
 
 ;;; Commentary:
 
@@ -93,6 +94,7 @@
           (goto-char (match-beginning 2))
           (insert " "))))))
 
+;;;###autoload
 (define-minor-mode electric-spacing-mode
   "A minor mode that inserts spaces automatically."
   :init-value nil
