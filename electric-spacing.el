@@ -79,20 +79,21 @@
            electric-spacing-regexp-pairs))
 
 (defun electric-spacing-update (beg end &rest _)
-  (save-excursion
-    (goto-char beg)
-    (when (electric-spacing-maybe-insert-space)
-      (setq end (1+ end)))
-    (goto-char end)
-    (electric-spacing-maybe-insert-space)
-    (save-restriction
-      (narrow-to-region beg end)
-      (dolist (rx electric-spacing-regexp-pairs)
-        (setq rx (concat "\\(" (car rx) "\\)\\(" (cdr rx) "\\)"))
-        (goto-char beg)
-        (while (search-forward-regexp rx nil t)
-          (goto-char (match-beginning 2))
-          (insert " "))))))
+  (save-match-data
+    (save-excursion
+      (goto-char beg)
+      (when (electric-spacing-maybe-insert-space)
+        (setq end (1+ end)))
+      (goto-char end)
+      (electric-spacing-maybe-insert-space)
+      (save-restriction
+        (narrow-to-region beg end)
+        (dolist (rx electric-spacing-regexp-pairs)
+          (setq rx (concat "\\(" (car rx) "\\)\\(" (cdr rx) "\\)"))
+          (goto-char beg)
+          (while (search-forward-regexp rx nil t)
+            (goto-char (match-beginning 2))
+            (insert " ")))))))
 
 ;;;###autoload
 (define-minor-mode electric-spacing-mode
