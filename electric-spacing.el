@@ -79,7 +79,6 @@
            electric-spacing-regexp-pairs))
 
 (defun electric-spacing-update (beg end len)
-  (print (list beg end len))
   (unless (and (= (- end beg) 0) (= len 1))
     (save-match-data
       (save-excursion
