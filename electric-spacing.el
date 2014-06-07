@@ -78,22 +78,24 @@
                t))
            electric-spacing-regexp-pairs))
 
-(defun electric-spacing-update (beg end &rest _)
-  (save-match-data
-    (save-excursion
-      (goto-char beg)
-      (when (electric-spacing-maybe-insert-space)
-        (setq end (1+ end)))
-      (goto-char end)
-      (electric-spacing-maybe-insert-space)
-      (save-restriction
-        (narrow-to-region beg end)
-        (dolist (rx electric-spacing-regexp-pairs)
-          (setq rx (concat "\\(" (car rx) "\\)\\(" (cdr rx) "\\)"))
-          (goto-char beg)
-          (while (search-forward-regexp rx nil t)
-            (goto-char (match-beginning 2))
-            (insert " ")))))))
+(defun electric-spacing-update (beg end len)
+  (print (list beg end len))
+  (unless (and (= (- end beg) 0) (= len 1))
+    (save-match-data
+      (save-excursion
+        (goto-char beg)
+        (when (electric-spacing-maybe-insert-space)
+          (setq end (1+ end)))
+        (goto-char end)
+        (electric-spacing-maybe-insert-space)
+        (save-restriction
+          (narrow-to-region beg end)
+          (dolist (rx electric-spacing-regexp-pairs)
+            (setq rx (concat "\\(" (car rx) "\\)\\(" (cdr rx) "\\)"))
+            (goto-char beg)
+            (while (search-forward-regexp rx nil t)
+              (goto-char (match-beginning 2))
+              (insert " "))))))))
 
 ;;;###autoload
 (define-minor-mode electric-spacing-mode
@@ -102,7 +104,7 @@
   :global nil
   (if (not electric-spacing-mode)
       (remove-hook 'after-change-functions 'electric-spacing-update t)
-    (electric-spacing-update 1 (1+ (buffer-size)))
+    (electric-spacing-update 1 (1+ (buffer-size)) 0)
     (add-hook 'after-change-functions 'electric-spacing-update nil t)))
 
 (provide 'electric-spacing)
