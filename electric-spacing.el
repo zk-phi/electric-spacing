@@ -72,8 +72,8 @@
 
 (defun electric-spacing-maybe-insert-space ()
   (cl-some (lambda (pair)
-             (when (and (looking-at (car pair))
-                        (looking-back (cdr pair)))
+             (when (and (looking-back (car pair))
+                        (looking-at (cdr pair)))
                (insert " ")
                t))
            electric-spacing-regexp-pairs))
