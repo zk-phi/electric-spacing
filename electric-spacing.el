@@ -70,6 +70,9 @@
   "List of pairs of the form (REGEXP1 . REGEXP2). Each REGEXPs
   must not contain any groups.")
 
+(defvar electric-spacing-undo-commands
+  '(undo undo-only undo-tree-undo))
+
 (defun electric-spacing-maybe-insert-space ()
   (cl-some (lambda (pair)
              (when (and (looking-back (car pair))
@@ -79,7 +82,8 @@
            electric-spacing-regexp-pairs))
 
 (defun electric-spacing-update (beg end len)
-  (unless (and (= (- end beg) 0) (= len 1))
+  (unless (or (memq this-command electric-spacing-undo-commands)
+              (and (= (- end beg) 0) (= len 1)))
     (save-match-data
       (save-excursion
         (goto-char beg)
@@ -103,7 +107,7 @@
   :global nil
   (if (not electric-spacing-mode)
       (remove-hook 'after-change-functions 'electric-spacing-update t)
-    (electric-spacing-update 1 (1+ (buffer-size)) 0)
+    (electric-spacing-update 1 (1+ (buffer-size)) nil)
     (add-hook 'after-change-functions 'electric-spacing-update nil t)))
 
 (provide 'electric-spacing)
