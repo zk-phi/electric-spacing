@@ -79,7 +79,7 @@
            electric-spacing-regexp-pairs))
 
 (defun electric-spacing-update (beg end len)
-  (unless (or undo-in-progress (and (= (- end beg) 0) (= len 1)))
+  (unless (or undo-in-progress (and (= (- end beg) 0) (eql len 1)))
     (save-match-data
       (save-excursion
         (goto-char beg)
