@@ -103,7 +103,6 @@
   :global nil
   (if (not electric-spacing-mode)
       (remove-hook 'after-change-functions 'electric-spacing-update t)
-    (electric-spacing-update 1 (1+ (buffer-size)) nil)
     (add-hook 'after-change-functions 'electric-spacing-update nil t)))
 
 (provide 'electric-spacing)
