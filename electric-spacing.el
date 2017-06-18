@@ -1,6 +1,6 @@
 ;;; electric-spacing.el --- insert spaces automatically between user-defined patterns
 
-;; Copyright (C) 2014 zk_phi
+;; Copyright (C) 2014- zk_phi
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 ;; Author: zk_phi
 ;; URL: http://hins11.yu-yake.com/
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Package-Requires: ((cl-lib "0.5"))
 
 ;;; Commentary:
@@ -57,6 +57,7 @@
 ;;; Change Log:
 
 ;; 1.0.0 first released
+;; 1.0.1 add an option `electric-spacing-inhibit-commands'
 
 ;;; Code:
 
@@ -66,9 +67,15 @@
   "A minor mode that inserts spaces automatically."
   :group 'emacs)
 
-(defvar electric-spacing-regexp-pairs nil
+(defcustom electric-spacing-regexp-pairs nil
   "List of pairs of the form (REGEXP1 . REGEXP2). Each REGEXPs
-  must not contain any groups.")
+  must not contain any groups."
+  :group 'electric-spacing)
+
+(defcustom electric-spacing-inhibit-commands
+  '(yank clipboard-yank org-yank phi-rectangle-yank t)
+  "Commands which should not invoke electric spacing."
+  :group 'electric-spacing)
 
 (defun electric-spacing-maybe-insert-space ()
   (cl-some (lambda (pair)
@@ -79,7 +86,9 @@
            electric-spacing-regexp-pairs))
 
 (defun electric-spacing-update (beg end len)
-  (unless (or undo-in-progress (and (= (- end beg) 0) (eql len 1)))
+  (unless (or undo-in-progress
+              (memq this-command electric-spacing-inhibit-commands)
+              (and (= (- end beg) 0) (eql len 1)))
     (save-match-data
       (save-excursion
         (goto-char beg)
