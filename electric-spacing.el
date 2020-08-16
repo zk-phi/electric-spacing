@@ -70,11 +70,13 @@
 (defcustom electric-spacing-regexp-pairs nil
   "List of pairs of the form (REGEXP1 . REGEXP2). Each REGEXPs
   must not contain any groups."
+  :type '(alist :key-type string :value-type string)
   :group 'electric-spacing)
 
 (defcustom electric-spacing-inhibit-commands
   '(yank clipboard-yank org-yank phi-rectangle-yank t)
   "Commands which should not invoke electric spacing."
+  :type '(list symbol)
   :group 'electric-spacing)
 
 (defun electric-spacing-maybe-insert-space ()
