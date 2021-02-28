@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 ;;; electric-spacing.el --- insert spaces automatically between user-defined patterns
 
 ;; Copyright (C) 2014- zk_phi
